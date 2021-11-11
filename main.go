@@ -23,7 +23,7 @@ func main() {
 	
 	c, _ = paypalwebhook.GetPayPalClient()
 	//c, _ = paypalwebhook.GetPayPalClientWith(clientID,secretID,apiMode,webhookID)
-	
+
 	if(enablePayPalClientOutput){c.SetLog(os.Stdout)}
 	//http.HandleFunc("/oldOrder", oldOrder)
 	http.HandleFunc(webhookpath, webhookHandler)
@@ -47,6 +47,6 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 	paypalwebhook.PaypalWebhook(c,w,r)
 }
 
-
+//TODO: ADD CLIENTSIDE CODE INTO BROWSER DEMO
 /*func oldOrder(w http.ResponseWriter, r *http.Request) {
 }*/
