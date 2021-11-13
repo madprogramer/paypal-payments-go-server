@@ -48,7 +48,7 @@ func main() {
 //TODO: Add some info text/link to a tutorial here
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
 	//Client ID is passed from config.go
-	p := DemoPage{ClientID:cid}
+	p := DemoPage{ClientID:clientid}
 	t, err := template.ParseFiles("browserdemo/index.html")
 	if err==nil {
 		t.Execute(w,p)
