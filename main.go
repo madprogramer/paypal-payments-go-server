@@ -38,7 +38,7 @@ func main() {
 	http.HandleFunc(webhookpath, webhookHandler)
 	http.HandleFunc("/", defaultHandler)
 	//Optional: For Rendering Skeleton CSS
-	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("browserdemo/css"))))
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("html/css"))))
 	log.Fatal(http.ListenAndServe(defaultport, nil))
 }
 
