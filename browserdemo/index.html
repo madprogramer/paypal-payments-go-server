@@ -19,8 +19,8 @@
 
   <!-- CSS
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/skeleton.css">
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -38,11 +38,11 @@
         <h1 style='text-align: center; margin-top: auto;'>Paypal Check-Out Demo</h1>
         <h3 style='margin-top: auto;'>Steps:</h3>
         <ol>
-          <li>Open <b>index.html</b> in a text editor.</li>
+          <li>Open <b>config.go</b> in a text editor.</li>
 
-          <li> Replace <b>`client-id`</b> in `https://www.paypal.com/sdk/js?client-id=sb...` with your PayPal App's Client ID to receive payments.</li>
+          <li> Replace <b>`sb`</b> in `cid = "sb"` with your PayPal App's Client ID to receive payments. Pay attention to whether it's in Sandbox or Live mode!</li>
 
-          <li>Refresh the page.</li>
+          <li><b>Restart the server.</b> A refresh will not be enough.</li>
 
           <li>Fill in the fields below and pay either by PayPal or Debit/Credit Card.</li>
 
@@ -92,7 +92,7 @@
         }
     </script>
   
-  <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id={{.ClientID}}&enable-funding=venmo&currency=USD" data-sdk-integration-source="button-factory"></script>
   <script>
   function initPayPalButton() {
     var description = document.querySelector('#smart-button-container #description');

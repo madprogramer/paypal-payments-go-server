@@ -1,9 +1,12 @@
 // Working example of a basic Go server listening on a Paypal Webhook
+//
+// To the unfortunate programmer still working with Paypal,
+// Have you thought of asking your client if they would consider using Stripe instead?
 package main
 
 import (
 	"net/http"
-    "fmt"
+	"html/template"
     "log"
     "os"
 
@@ -15,6 +18,12 @@ var (
 	//Pointer to a Paypal Client (from plutov/paypal on GitHub)
 	c *paypal.Client
 )
+
+//Struct for demo page config
+type DemoPage struct{
+	//Client ID string to switch between (unfunctional) template, Sandbox and Live
+	ClientID string
+}
 
 //
 func main() {
@@ -28,6 +37,8 @@ func main() {
 	//http.HandleFunc("/oldOrder", oldOrder)
 	http.HandleFunc(webhookpath, webhookHandler)
 	http.HandleFunc("/", defaultHandler)
+	//Optional: For Rendering Skeleton CSS
+	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("browserdemo/css"))))
 	log.Fatal(http.ListenAndServe(defaultport, nil))
 }
 
@@ -36,8 +47,12 @@ func main() {
 //
 //TODO: Add some info text/link to a tutorial here
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
-	log.Print("HI!");
-	fmt.Fprint(w, "HI!")
+	//Client ID is passed from config.go
+	p := DemoPage{ClientID:cid}
+	t, err := template.ParseFiles("browserdemo/index.html")
+	if err==nil {
+		t.Execute(w,p)
+	}
 }
 
 //Webhook Handler
