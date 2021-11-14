@@ -83,11 +83,22 @@
 
   <script>
     function amountChange(){
+
         var amount = document.querySelector('#amount');
         //console.log(amount.value);
-        if (amount.value < 30){
-        amount.value = 30;
+
+        //min amount
+        if (amount.value < {{.MinAmount}}){
+          amount.value = {{.MinAmount}};
         }
+
+        //max amount
+        if ({{.MaxAmount}} > 0) { // DO NOT IGNORE
+          if (amount.value > {{.MaxAmount}}) {
+            amount.value = {{.MaxAmount}};
+          }
+        }
+
         return 0;
         }
     </script>

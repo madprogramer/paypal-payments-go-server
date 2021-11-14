@@ -23,6 +23,10 @@ var (
 type DemoPage struct{
 	//Client ID string to switch between (unfunctional) template, Sandbox and Live
 	ClientID string
+	//Min Amount to Pay
+	MinAmount float64
+	//Max Amount to Pay
+	MaxAmount float64
 }
 
 //
@@ -39,6 +43,7 @@ func main() {
 	http.HandleFunc("/", defaultHandler)
 	//Optional: For Rendering Skeleton CSS
 	http.Handle("/css/", http.StripPrefix("/css/", http.FileServer(http.Dir("html/css"))))
+	log.Print("\033[32mServing demo at http://localhost",defaultport,"/\033[0m")
 	log.Fatal(http.ListenAndServe(defaultport, nil))
 }
 
@@ -48,7 +53,7 @@ func main() {
 //TODO: Add some info text/link to a tutorial here
 func defaultHandler(w http.ResponseWriter, r *http.Request) {
 	//Client ID is passed from config.go
-	p := DemoPage{ClientID:clientid}
+	p := DemoPage{ ClientID:clientid, MinAmount:minamount, MaxAmount:maxamount }
 	t, err := template.ParseFiles("html/index.html")
 	if err==nil {
 		t.Execute(w,p)
